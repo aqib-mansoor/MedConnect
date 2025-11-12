@@ -7,6 +7,7 @@ import {
   FaUsers,
   FaBars,
   FaTimes,
+  FaUserMd,
 } from "react-icons/fa";
 
 interface SidebarProps {
@@ -14,21 +15,24 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ role }: SidebarProps) {
-  const [isOpen, setIsOpen] = useState(false); // sidebar initially closed on mobile
+  const [isOpen, setIsOpen] = useState(false); // sidebar toggle for mobile
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const getLinkClass = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-3 p-2 rounded-md transition-all ${
-      isActive ? "bg-blue-600" : "hover:bg-gray-700"
+      isActive ? "bg-green-700" : "hover:bg-green-600"
     }`;
 
+  // Patient Menu (added "Find Doctors")
   const patientMenu = [
     { name: "Dashboard", path: "/patient-dashboard", icon: <FaTachometerAlt /> },
+    { name: "Find Doctors", path: "/patient-doctors", icon: <FaUserMd /> },
     { name: "Appointments", path: "/patient-appointments", icon: <FaCalendarCheck /> },
     { name: "Medical Records", path: "/patient-medical-records", icon: <FaFileMedical /> },
   ];
 
+  // Doctor Menu
   const doctorMenu = [
     { name: "Dashboard", path: "/doctor-dashboard", icon: <FaTachometerAlt /> },
     { name: "Patients", path: "/doctor-patients", icon: <FaUsers /> },
@@ -41,7 +45,7 @@ export default function Sidebar({ role }: SidebarProps) {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="md:hidden fixed top-4 left-4 z-50 bg-blue-600 text-white p-2 rounded-md shadow-lg"
+        className="md:hidden fixed top-4 left-4 z-50 bg-green-700 text-white p-2 rounded-md shadow-lg"
         onClick={toggleSidebar}
       >
         {isOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
@@ -49,10 +53,10 @@ export default function Sidebar({ role }: SidebarProps) {
 
       {/* Sidebar */}
       <aside
-        className={`bg-gray-800 text-white w-64 min-h-screen p-5 flex flex-col gap-4 fixed md:relative top-0 left-0 z-40 transform transition-transform duration-300
+        className={`bg-green-800 text-white w-64 min-h-screen p-5 flex flex-col gap-4 fixed md:relative top-0 left-0 z-40 transform transition-transform duration-300
         ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
-        <h2 className="text-xl font-bold mb-6 text-center border-b border-gray-700 pb-3">
+        <h2 className="text-xl font-bold mb-6 text-center border-b border-green-700 pb-3">
           {role === "patient" ? "Patient Menu" : "Doctor Menu"}
         </h2>
 
