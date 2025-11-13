@@ -24,11 +24,11 @@ export default function Sidebar({ role }: SidebarProps) {
       isActive ? "bg-green-700" : "hover:bg-green-600"
     }`;
 
-  // Patient Menu (added "Find Doctors")
+  // Patient Menu
   const patientMenu = [
     { name: "Dashboard", path: "/patient-dashboard", icon: <FaTachometerAlt /> },
     { name: "Find Doctors", path: "/patient-doctors", icon: <FaUserMd /> },
-    { name: "Appointments", path: "/patient-appointments", icon: <FaCalendarCheck /> },
+    { name: "My Appointments", path: "/patient-appointments", icon: <FaCalendarCheck /> },
     { name: "Medical Records", path: "/patient-medical-records", icon: <FaFileMedical /> },
   ];
 

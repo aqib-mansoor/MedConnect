@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Doctor } from "../../utils/doctorStorage";
 import { saveAppointment, isSlotBooked } from "../../utils/appointmentStorage";
+import { useToast } from "../../context/ToastContext";
 
 interface Props {
   doctor: Doctor;
@@ -10,18 +11,19 @@ interface Props {
 export default function BookingModal({ doctor, onClose }: Props) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+  const { addToast } = useToast(); // keep it here, just don't call it on render
 
   const patientEmail =
     localStorage.getItem("currentUserEmail") || "patient@demo.com";
 
   const handleBooking = () => {
     if (!date || !time) {
-      alert("Please select both date and time!");
+      setTimeout(() => addToast("Please select both date and time!", "error"), 0);
       return;
     }
 
     if (isSlotBooked(doctor.id, date, time)) {
-      alert("This time slot is already booked!");
+      setTimeout(() => addToast("This time slot is already booked!", "error"), 0);
       return;
     }
 
@@ -35,7 +37,9 @@ export default function BookingModal({ doctor, onClose }: Props) {
       status: "booked",
     });
 
-    alert(`Appointment booked with ${doctor.name} on ${date} at ${time}`);
+    // Show success toast
+    setTimeout(() => addToast(`Appointment booked with ${doctor.name} on ${date} at ${time}`, "success"), 0);
+
     onClose();
   };
 
