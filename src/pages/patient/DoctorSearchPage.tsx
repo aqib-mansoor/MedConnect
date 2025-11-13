@@ -14,6 +14,7 @@ export default function DoctorSearchPage() {
     setDoctors(getDoctors());
   }, []);
 
+
   const filteredDoctors = doctors.filter(
     (d) =>
       d.name.toLowerCase().includes(filter.toLowerCase()) ||

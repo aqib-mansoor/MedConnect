@@ -11,10 +11,15 @@ interface Credential {
   role: "patient" | "doctor";
 }
 
-// Predefined credentials
+// ✅ Updated predefined demo users
 const predefinedUsers: Credential[] = [
   { email: "patient@example.com", password: "123", role: "patient" },
-  { email: "doctor@example.com", password: "123", role: "doctor" },
+  { email: "ayesha@hospital.com", password: "123", role: "doctor" },
+  { email: "ali@hospital.com", password: "123", role: "doctor" },
+  { email: "sara@hospital.com", password: "123", role: "doctor" },
+  { email: "bilal@hospital.com", password: "123", role: "doctor" },
+  { email: "hina@hospital.com", password: "123", role: "doctor" },
+
 ];
 
 export default function LoginPage() {
@@ -26,7 +31,7 @@ export default function LoginPage() {
 
   const handleLogin = () => {
     const user = predefinedUsers.find(
-      (u) => u.email === email && u.password === password
+      (u) => u.email === email.trim() && u.password === password.trim()
     );
 
     if (user) {
@@ -78,6 +83,7 @@ export default function LoginPage() {
           className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2 rounded-lg shadow-md transition-all"
         />
 
+       
         <p className="text-center mt-4 text-sm text-green-700">
           Don't have an account?{" "}
           <span

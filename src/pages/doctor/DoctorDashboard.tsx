@@ -1,8 +1,30 @@
+import { useEffect, useState } from "react";
 import Layout from "../../components/layout/Layout";
 import DashboardCard from "../../components/cards/DashboardCard";
-import { FaUserMd, FaCalendarAlt, FaFileUpload, FaClipboardList, FaClock } from "react-icons/fa";
+import { FaUserMd, FaCalendarAlt, FaFileUpload, FaClock } from "react-icons/fa";
+
+interface DoctorUser {
+  email: string;
+  password: string;
+  role: "doctor";
+}
 
 export default function DoctorDashboard() {
+  const [doctorName, setDoctorName] = useState("Doctor");
+
+  useEffect(() => {
+    // ✅ Get logged-in doctor details from localStorage
+    const storedUser = localStorage.getItem("authUser");
+    if (storedUser) {
+      const user: DoctorUser = JSON.parse(storedUser);
+      const nameFromEmail = user.email.split("@")[0]; // e.g. "ayesha"
+      const capitalized =
+        "Dr. " + nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1);
+      setDoctorName(capitalized);
+    }
+  }, []);
+
+  // ✅ Dummy Data
   const todayAppointments = [
     { patient: "Aqib Mansoor", time: "10:00 AM", status: "Upcoming" },
     { patient: "Fatima Ali", time: "11:30 AM", status: "Completed" },
@@ -14,14 +36,11 @@ export default function DoctorDashboard() {
     { name: "Blood Test - Fatima", date: "09 Nov 2025" },
   ];
 
-  const upcomingSlots = [
-    { day: "Monday", time: "9:00 AM - 2:00 PM" },
-    { day: "Tuesday", time: "10:00 AM - 3:00 PM" },
-  ];
-
   return (
     <Layout>
-      <h2 className="text-2xl font-bold mb-6">Welcome, Dr. Smith 👨‍⚕️</h2>
+      <h2 className="text-2xl font-bold mb-6">
+        Welcome, {doctorName} 👨‍⚕️
+      </h2>
 
       {/* Stats Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -63,7 +82,9 @@ export default function DoctorDashboard() {
               </p>
               <span
                 className={`text-sm font-semibold ${
-                  appt.status === "Upcoming" ? "text-green-600" : "text-gray-400"
+                  appt.status === "Upcoming"
+                    ? "text-green-600"
+                    : "text-gray-400"
                 }`}
               >
                 {appt.status}
@@ -93,8 +114,6 @@ export default function DoctorDashboard() {
           ))}
         </div>
       </div>
-
-    
     </Layout>
   );
 }

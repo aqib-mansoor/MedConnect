@@ -1,7 +1,9 @@
+// MedConnect/src/context/AuthContext.tsx
 import React, { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
+
 import type { User } from "../types/auth";
-import { saveUser, getUsers, findUser } from "../utils/storage";
+import { findUser, getUsers, saveUser } from "../utils/storage";
 
 interface AuthContextType {
   user: User | null;
@@ -19,10 +21,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const login = (email: string, password: string) => {
-    const foundUser = findUser(email, password);
-    if (foundUser) {
-      localStorage.setItem("authUser", JSON.stringify(foundUser));
-      setUser(foundUser);
+    const found = findUser(email, password);
+    if (found) {
+      localStorage.setItem("authUser", JSON.stringify(found));
+      setUser(found);
+      // optionally save currentUserEmail for appointments
+      localStorage.setItem("currentUserEmail", found.email);
       return true;
     }
     return false;
@@ -30,12 +34,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     localStorage.removeItem("authUser");
+    localStorage.removeItem("currentUserEmail");
     setUser(null);
   };
 
   const register = (newUser: User) => {
     const users = getUsers();
-    const exists = users.find(u => u.email === newUser.email);
+    const exists = users.some(u => u.email === newUser.email);
     if (exists) return false;
     saveUser(newUser);
     return true;
