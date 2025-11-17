@@ -43,7 +43,7 @@ export default function PatientsPage() {
 
   return (
     <Layout>
-      <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">My Patients</h2>
+      <h2 className="text-3xl font-bold mb-8 text-center text-green-600">My Patients</h2>
 
       {patientsList.length === 0 ? (
         <p className="text-gray-500 text-center text-lg">No patients yet.</p>

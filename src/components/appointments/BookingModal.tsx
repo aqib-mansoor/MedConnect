@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Doctor } from "../../utils/doctorStorage";
 import { saveAppointment, isSlotBooked } from "../../utils/appointmentStorage";
 import { useToast } from "../../context/ToastContext";
+import { isWithinAvailability } from "../../utils/availabilityStorage";
 
 interface Props {
   doctor: Doctor;
@@ -13,35 +14,42 @@ export default function BookingModal({ doctor, onClose }: Props) {
   const [time, setTime] = useState("");
   const { addToast } = useToast();
 
-  // Get current patient info
   const patientEmail = localStorage.getItem("currentUserEmail") || "patient@demo.com";
   const patientName = localStorage.getItem("currentUserName") || "Patient";
 
   const handleBooking = () => {
     if (!date || !time) {
-      setTimeout(() => addToast("Please select both date and time!", "error"), 0);
+      setTimeout(() => addToast("⚠️ Please select both date and time!", "error"), 0);
+      return;
+    }
+
+    if (!isWithinAvailability(doctor.name, date, time)) {
+      setTimeout(() => addToast("⚠️ Selected time is outside doctor's availability!", "error"), 0);
       return;
     }
 
     if (isSlotBooked(doctor.email, date, time)) {
-      setTimeout(() => addToast("This time slot is already booked!", "error"), 0);
+      setTimeout(() => addToast("⚠️ This time slot is already booked!", "error"), 0);
       return;
     }
 
-    // Save appointment with patientName directly
     saveAppointment({
       id: crypto.randomUUID(),
       doctorId: doctor.email,
       doctorName: doctor.name,
       patientEmail,
-      patientName, // ✅ Save name directly
+      patientName,
       date,
       time,
       status: "booked",
     });
 
     setTimeout(
-      () => addToast(`Appointment booked with ${doctor.name} on ${date} at ${time}`, "success"),
+      () =>
+        addToast(
+          ` Appointment booked with ${doctor.name} on ${date} at ${time}`,
+          "success"
+        ),
       0
     );
 

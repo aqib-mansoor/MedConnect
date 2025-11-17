@@ -3,7 +3,7 @@ interface InputProps {
   type?: string;
   value: string;
   onChange: (val: string) => void;
-  className?: string; // ✅ Add this line
+  className?: string;
 }
 
 export default function InputField({ label, type = "text", value, onChange, className = "" }: InputProps) {

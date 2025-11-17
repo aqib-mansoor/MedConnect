@@ -84,7 +84,7 @@ export default function DoctorDashboard() {
               className="bg-white rounded-2xl shadow-lg p-4 flex flex-col gap-2 hover:shadow-2xl transition"
             >
               <h4 className="font-bold text-gray-800">
-                {appt.patientName} {/* ✅ Now shows patient name */}
+                {appt.patientName} {/*  Now shows patient name */}
               </h4>
 
               <p className="text-gray-500 flex items-center gap-2">

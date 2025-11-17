@@ -12,7 +12,7 @@ interface Credential {
   name: string; // ← added name
 }
 
-// ✅ Updated predefined demo users with names
+//  Updated predefined demo users with names
 const predefinedUsers: Credential[] = [
   { email: "patient@example.com", password: "123", role: "patient", name: "Umer Khan" },
   { email: "abc@gmail.com", password: "123", role: "patient", name: "Fahad Sohail" },
@@ -36,7 +36,7 @@ export default function LoginPage() {
     );
 
     if (user) {
-      // ✅ Save full user info in localStorage
+      //  Save full user info in localStorage
       localStorage.setItem("authUser", JSON.stringify(user));
       localStorage.setItem("currentUserEmail", user.email);
       localStorage.setItem("currentUserName", user.name); // ← Save patient/doctor name

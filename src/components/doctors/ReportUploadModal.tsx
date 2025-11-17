@@ -13,7 +13,10 @@ export default function ReportUploadModal({ patient, onClose }: Props) {
   const doctorName = localStorage.getItem("currentUserName") || "Dr. Demo";
 
   const handleUpload = () => {
-    if (!files || files.length === 0) return toast.error("Please select at least one file!");
+    if (!files || files.length === 0) {
+      toast.error("⚠️ Please select at least one file!");
+      return;
+    }
 
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
@@ -32,7 +35,7 @@ export default function ReportUploadModal({ patient, onClose }: Props) {
       reader.readAsDataURL(file);
     });
 
-    toast.success(`Medical report(s) uploaded successfully for ${patient.patientName || patient.patientEmail}`);
+    toast.success(` Medical report(s) uploaded for ${patient.patientName || patient.patientEmail}`);
     onClose();
   };
 

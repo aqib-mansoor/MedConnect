@@ -8,6 +8,8 @@ import {
   FaBars,
   FaTimes,
   FaUserMd,
+  FaFileUpload,
+  FaClock,
 } from "react-icons/fa";
 
 interface SidebarProps {
@@ -33,10 +35,11 @@ export default function Sidebar({ role }: SidebarProps) {
   ];
 
   // Doctor Menu
-  const doctorMenu = [
+   const doctorMenu = [
     { name: "Dashboard", path: "/doctor-dashboard", icon: <FaTachometerAlt /> },
-    { name: "My Patients", path: "/doctor-patients", icon: <FaUsers /> },
     { name: "Appointments", path: "/doctor-appointments", icon: <FaCalendarCheck /> },
+    { name: "Upload Reports", path: "/doctor-patients", icon: <FaFileUpload /> }, // integrated in patients page
+    { name: "Availability", path: "/doctor-availability", icon: <FaClock /> },
   ];
 
   const menuItems = role === "patient" ? patientMenu : doctorMenu;
