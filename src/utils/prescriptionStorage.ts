@@ -7,6 +7,7 @@ export interface Prescription {
     name: string;
     dosage: string;
     duration: string;
+    time: string;
   }[];
   date: string;
 }
@@ -35,4 +36,11 @@ export const getPrescriptionsByDoctor = (doctorName: string): Prescription[] => 
   const data = localStorage.getItem("prescriptions");
   const prescriptions: Prescription[] = data ? JSON.parse(data) : [];
   return prescriptions.filter((p) => p.doctorName === doctorName);
+};
+
+// src/utils/prescriptionStorage.ts
+export const getPrescriptionsByPatientEmail = (patientEmail: string): Prescription[] => {
+  const data = localStorage.getItem("prescriptions");
+  const prescriptions: Prescription[] = data ? JSON.parse(data) : [];
+  return prescriptions.filter(p => p.patientEmail === patientEmail);
 };

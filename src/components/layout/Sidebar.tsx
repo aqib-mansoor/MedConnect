@@ -29,7 +29,7 @@ export default function Sidebar({ role }: SidebarProps) {
     { name: "Dashboard", path: "/patient-dashboard", icon: <FaTachometerAlt /> },
     { name: "Find Doctors", path: "/patient-doctors", icon: <FaUserMd /> },
     { name: "My Appointments", path: "/patient-appointments", icon: <FaCalendarCheck /> },
-    { name: "Medical Records", path: "/patient-medical-records", icon: <FaFileMedical /> },
+    { name: "Medical Records", path: "/patient-reports", icon: <FaFileMedical /> },
   ];
 
   // Doctor Menu

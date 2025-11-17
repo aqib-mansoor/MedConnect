@@ -16,11 +16,11 @@ interface Props {
 }
 
 export default function PrescriptionModal({ patient, onClose, onComplete }: Props) {
-  const [medicines, setMedicines] = useState([{ name: "", dosage: "", duration: "" }]);
+  const [medicines, setMedicines] = useState([{ name: "", dosage: "", duration: "", time: "" }]);
   const doctorName = localStorage.getItem("currentUserName") || "Dr. Demo";
 
   const handleAddMedicine = () =>
-    setMedicines([...medicines, { name: "", dosage: "", duration: "" }]);
+    setMedicines([...medicines, { name: "", dosage: "", duration: "", time: "" }]);
 
   const handleChange = (index: number, field: string, value: string) => {
     const newMeds = [...medicines];
@@ -30,7 +30,7 @@ export default function PrescriptionModal({ patient, onClose, onComplete }: Prop
   };
 
   const handleSave = () => {
-    if (medicines.some((m) => !m.name || !m.dosage || !m.duration)) {
+    if (medicines.some((m) => !m.name || !m.dosage || !m.duration || !m.time)) {
       alert("Please fill all fields for each medicine.");
       return;
     }
@@ -95,6 +95,13 @@ export default function PrescriptionModal({ patient, onClose, onComplete }: Prop
                 placeholder="Duration (e.g., 5 days)"
                 value={m.duration}
                 onChange={(e) => handleChange(i, "duration", e.target.value)}
+                className="flex-1 p-2 border rounded"
+              />
+              <input
+                type="text"
+                placeholder="Time (e.g., 2 times )"
+                value={m.time}
+                onChange={(e) => handleChange(i, "time", e.target.value)}
                 className="flex-1 p-2 border rounded"
               />
             </div>
