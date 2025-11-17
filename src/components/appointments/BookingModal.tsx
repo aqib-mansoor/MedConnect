@@ -13,7 +13,7 @@ export default function BookingModal({ doctor, onClose }: Props) {
   const [time, setTime] = useState("");
   const { addToast } = useToast();
 
-  // ✅ Get both patient email and name from localStorage
+  // Get current patient info
   const patientEmail = localStorage.getItem("currentUserEmail") || "patient@demo.com";
   const patientName = localStorage.getItem("currentUserName") || "Patient";
 
@@ -28,24 +28,20 @@ export default function BookingModal({ doctor, onClose }: Props) {
       return;
     }
 
-    // ✅ Save patientName along with appointment
+    // Save appointment with patientName directly
     saveAppointment({
       id: crypto.randomUUID(),
-      doctorId: doctor.email, // use doctor email as ID
+      doctorId: doctor.email,
       doctorName: doctor.name,
       patientEmail,
-      patientName, // ← key addition
+      patientName, // ✅ Save name directly
       date,
       time,
       status: "booked",
     });
 
     setTimeout(
-      () =>
-        addToast(
-          `Appointment booked with ${doctor.name} on ${date} at ${time}`,
-          "success"
-        ),
+      () => addToast(`Appointment booked with ${doctor.name} on ${date} at ${time}`, "success"),
       0
     );
 
@@ -66,12 +62,10 @@ export default function BookingModal({ doctor, onClose }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl w-[90%] max-w-md p-6 border border-green-100 relative">
-        {/* Header */}
         <h3 className="text-2xl font-semibold text-green-700 text-center mb-6">
           Book Appointment
         </h3>
 
-        {/* Doctor Info */}
         <div className="bg-green-50 rounded-lg p-4 mb-5 text-center">
           <p className="text-gray-700 font-medium">
             <span className="text-green-700 font-semibold">{doctor.name}</span>
@@ -79,7 +73,6 @@ export default function BookingModal({ doctor, onClose }: Props) {
           <p className="text-sm text-gray-600">{doctor.specialization}</p>
         </div>
 
-        {/* Form */}
         <div className="flex flex-col gap-4">
           <label className="text-gray-700 font-medium">Select Date</label>
           <input
@@ -103,7 +96,6 @@ export default function BookingModal({ doctor, onClose }: Props) {
             ))}
           </select>
 
-          {/* Buttons */}
           <div className="flex justify-between mt-6">
             <button
               onClick={onClose}
@@ -120,7 +112,6 @@ export default function BookingModal({ doctor, onClose }: Props) {
           </div>
         </div>
 
-        {/* Close Icon */}
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-lg"
