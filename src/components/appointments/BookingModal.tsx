@@ -11,7 +11,7 @@ interface Props {
 export default function BookingModal({ doctor, onClose }: Props) {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const { addToast } = useToast(); // keep it here, just don't call it on render
+  const { addToast } = useToast();
 
   const patientEmail =
     localStorage.getItem("currentUserEmail") || "patient@demo.com";
@@ -22,14 +22,15 @@ export default function BookingModal({ doctor, onClose }: Props) {
       return;
     }
 
-    if (isSlotBooked(doctor.id, date, time)) {
+    // Use doctor.email as doctorId for consistency
+    if (isSlotBooked(doctor.email, date, time)) {
       setTimeout(() => addToast("This time slot is already booked!", "error"), 0);
       return;
     }
 
     saveAppointment({
       id: crypto.randomUUID(),
-      doctorId: doctor.id,
+      doctorId: doctor.email, // key change here
       doctorName: doctor.name,
       patientEmail,
       date,
@@ -37,8 +38,14 @@ export default function BookingModal({ doctor, onClose }: Props) {
       status: "booked",
     });
 
-    // Show success toast
-    setTimeout(() => addToast(`Appointment booked with ${doctor.name} on ${date} at ${time}`, "success"), 0);
+    setTimeout(
+      () =>
+        addToast(
+          `Appointment booked with ${doctor.name} on ${date} at ${time}`,
+          "success"
+        ),
+      0
+    );
 
     onClose();
   };
@@ -62,13 +69,12 @@ export default function BookingModal({ doctor, onClose }: Props) {
           Book Appointment
         </h3>
 
+        {/* Doctor Info */}
         <div className="bg-green-50 rounded-lg p-4 mb-5 text-center">
           <p className="text-gray-700 font-medium">
             <span className="text-green-700 font-semibold">{doctor.name}</span>
           </p>
-          <p className="text-sm text-gray-600">
-            {doctor.specialization}
-          </p>
+          <p className="text-sm text-gray-600">{doctor.specialization}</p>
         </div>
 
         {/* Form */}
