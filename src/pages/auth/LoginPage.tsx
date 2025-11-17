@@ -15,6 +15,7 @@ interface Credential {
 // ✅ Updated predefined demo users with names
 const predefinedUsers: Credential[] = [
   { email: "patient@example.com", password: "123", role: "patient", name: "Umer Khan" },
+  { email: "abc@gmail.com", password: "123", role: "patient", name: "Fahad Sohail" },
   { email: "ayesha@hospital.com", password: "123", role: "doctor", name: "Dr. Ayesha Khan" },
   { email: "ali@hospital.com", password: "123", role: "doctor", name: "Dr. Ali Raza" },
   { email: "sara@hospital.com", password: "123", role: "doctor", name: "Dr. Sara Ahmed" },

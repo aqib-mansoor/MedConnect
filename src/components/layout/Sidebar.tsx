@@ -35,7 +35,7 @@ export default function Sidebar({ role }: SidebarProps) {
   // Doctor Menu
   const doctorMenu = [
     { name: "Dashboard", path: "/doctor-dashboard", icon: <FaTachometerAlt /> },
-    { name: "Patients", path: "/doctor-patients", icon: <FaUsers /> },
+    { name: "My Patients", path: "/doctor-patients", icon: <FaUsers /> },
     { name: "Appointments", path: "/doctor-appointments", icon: <FaCalendarCheck /> },
   ];
 

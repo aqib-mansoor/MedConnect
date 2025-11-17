@@ -1,16 +1,14 @@
 // src/pages/doctor/DoctorAppointments.tsx
 import { useState, useEffect } from "react";
 import Layout from "../../components/layout/Layout";
-import { getAppointments} from "../../utils/appointmentStorage";
+import { getAppointments } from "../../utils/appointmentStorage";
 import type { Appointment } from "../../utils/appointmentStorage";
-
+import PrescriptionModal from "../../components/doctors/PrescriptionModal";
 
 export default function DoctorAppointments() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [activeTab, setActiveTab] = useState<"today" | "upcoming" | "previous">("today");
-  const [selectedDate, setSelectedDate] = useState<string>(
-    new Date().toISOString().split("T")[0]
-  );
+  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
 
   const currentDoctorEmail = localStorage.getItem("currentUserEmail") || "doctor@demo.com";
 
@@ -22,28 +20,22 @@ export default function DoctorAppointments() {
     setAppointments(doctorAppointments);
   }, [currentDoctorEmail]);
 
-  const handleComplete = (id: string) => {
+  const handleComplete = (appointmentId: string) => {
     const allAppointments = getAppointments();
-    const updatedAppointments = allAppointments.map((a) => {
-      if (a.id === id) a.status = "completed";
+    const updated = allAppointments.map(a => {
+      if (a.id === appointmentId) a.status = "completed";
       return a;
     });
-
-    localStorage.setItem("appointments", JSON.stringify(updatedAppointments));
-
-    const doctorAppointments = updatedAppointments.filter(
-      (a) => a.doctorId === currentDoctorEmail
-    );
-    setAppointments(doctorAppointments);
+    localStorage.setItem("appointments", JSON.stringify(updated));
+    setAppointments(updated.filter(a => a.doctorId === currentDoctorEmail));
   };
 
   const today = new Date().toISOString().split("T")[0];
 
   const filteredAppointments = appointments.filter((a) => {
-    const appointmentDate = a.date;
-    if (activeTab === "today") return appointmentDate === today;
-    if (activeTab === "upcoming") return appointmentDate > today;
-    if (activeTab === "previous") return appointmentDate < today;
+    if (activeTab === "today") return a.date === today && a.status === "booked";
+    if (activeTab === "upcoming") return a.date > today && a.status === "booked";
+    if (activeTab === "previous") return a.status === "completed";
     return false;
   });
 
@@ -88,9 +80,9 @@ export default function DoctorAppointments() {
             <div
               key={a.id}
               className={`p-4 rounded-2xl shadow-md flex flex-col justify-between border-l-8 overflow-hidden ${
-                a.status === "completed" ? "border-l-blue-500 bg-blue-50" :
-                a.status === "booked" ? "border-l-green-500 bg-white" :
-                "border-l-gray-400 bg-gray-100 line-through"
+                a.status === "completed"
+                  ? "border-l-blue-500 bg-blue-50"
+                  : "border-l-green-500 bg-white"
               }`}
             >
               <h3 className="font-bold text-lg">{a.patientName}</h3>
@@ -98,26 +90,35 @@ export default function DoctorAppointments() {
               <p>Time: {a.time}</p>
               <p>
                 Status:{" "}
-                <span className={`font-semibold ${
-                  a.status === "booked" ? "text-green-700" :
-                  a.status === "completed" ? "text-blue-700" : "text-gray-700"
-                }`}>
+                <span
+                  className={`font-semibold ${
+                    a.status === "booked" ? "text-green-700" : "text-blue-700"
+                  }`}
+                >
                   {a.status.toUpperCase()}
                 </span>
               </p>
 
-              {/* Complete Button */}
-              {activeTab === "today" && a.status === "booked" && (
+              {activeTab !== "previous" && a.status === "booked" && (
                 <button
-                  onClick={() => handleComplete(a.id)}
+                  onClick={() => setSelectedAppointment(a)}
                   className="mt-2 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
                 >
-                  Mark Completed
+                  Write Prescription
                 </button>
               )}
             </div>
           ))}
         </div>
+      )}
+
+      {/* Prescription Modal */}
+      {selectedAppointment && (
+        <PrescriptionModal
+          patient={selectedAppointment}
+          onClose={() => setSelectedAppointment(null)}
+          onComplete={handleComplete}
+        />
       )}
     </Layout>
   );
