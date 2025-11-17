@@ -11,9 +11,10 @@ export interface MedicalReport {
 export const saveReport = (report: MedicalReport) => {
   const data = localStorage.getItem("medicalReports");
   const reports: MedicalReport[] = data ? JSON.parse(data) : [];
-  reports.push(report);
+  reports.push(report); // ✅ correct
   localStorage.setItem("medicalReports", JSON.stringify(reports));
 };
+
 
 // Get reports for a patient
 export const getReportsByPatient = (patientEmail: string): MedicalReport[] => {
