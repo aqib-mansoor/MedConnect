@@ -1,10 +1,10 @@
 import type { Doctor } from "./doctorStorage";
-
 export interface Appointment {
   id: string;
   doctorId: string;
   doctorName: string;
   patientEmail: string;
+  patientName: string;   
   date: string;
   time: string;
   status: "booked" | "completed" | "cancelled";

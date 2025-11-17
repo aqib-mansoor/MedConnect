@@ -13,8 +13,9 @@ export default function BookingModal({ doctor, onClose }: Props) {
   const [time, setTime] = useState("");
   const { addToast } = useToast();
 
-  const patientEmail =
-    localStorage.getItem("currentUserEmail") || "patient@demo.com";
+  // ✅ Get both patient email and name from localStorage
+  const patientEmail = localStorage.getItem("currentUserEmail") || "patient@demo.com";
+  const patientName = localStorage.getItem("currentUserName") || "Patient";
 
   const handleBooking = () => {
     if (!date || !time) {
@@ -22,17 +23,18 @@ export default function BookingModal({ doctor, onClose }: Props) {
       return;
     }
 
-    // Use doctor.email as doctorId for consistency
     if (isSlotBooked(doctor.email, date, time)) {
       setTimeout(() => addToast("This time slot is already booked!", "error"), 0);
       return;
     }
 
+    // ✅ Save patientName along with appointment
     saveAppointment({
       id: crypto.randomUUID(),
-      doctorId: doctor.email, // key change here
+      doctorId: doctor.email, // use doctor email as ID
       doctorName: doctor.name,
       patientEmail,
+      patientName, // ← key addition
       date,
       time,
       status: "booked",

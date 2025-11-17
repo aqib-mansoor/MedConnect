@@ -9,17 +9,17 @@ interface Credential {
   email: string;
   password: string;
   role: "patient" | "doctor";
+  name: string; // ← added name
 }
 
-// ✅ Updated predefined demo users
+// ✅ Updated predefined demo users with names
 const predefinedUsers: Credential[] = [
-  { email: "patient@example.com", password: "123", role: "patient" },
-  { email: "ayesha@hospital.com", password: "123", role: "doctor" },
-  { email: "ali@hospital.com", password: "123", role: "doctor" },
-  { email: "sara@hospital.com", password: "123", role: "doctor" },
-  { email: "bilal@hospital.com", password: "123", role: "doctor" },
-  { email: "hina@hospital.com", password: "123", role: "doctor" },
-
+  { email: "patient@example.com", password: "123", role: "patient", name: "Umer Khan" },
+  { email: "ayesha@hospital.com", password: "123", role: "doctor", name: "Dr. Ayesha Khan" },
+  { email: "ali@hospital.com", password: "123", role: "doctor", name: "Dr. Ali Raza" },
+  { email: "sara@hospital.com", password: "123", role: "doctor", name: "Dr. Sara Ahmed" },
+  { email: "bilal@hospital.com", password: "123", role: "doctor", name: "Dr. Bilal Shah" },
+  { email: "hina@hospital.com", password: "123", role: "doctor", name: "Dr. Hina Malik" },
 ];
 
 export default function LoginPage() {
@@ -35,7 +35,11 @@ export default function LoginPage() {
     );
 
     if (user) {
+      // ✅ Save full user info in localStorage
       localStorage.setItem("authUser", JSON.stringify(user));
+      localStorage.setItem("currentUserEmail", user.email);
+      localStorage.setItem("currentUserName", user.name); // ← Save patient/doctor name
+
       navigate(user.role === "patient" ? "/patient-dashboard" : "/doctor-dashboard");
     } else {
       setError("Invalid credentials. Please check email and password.");
@@ -83,7 +87,6 @@ export default function LoginPage() {
           className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2 rounded-lg shadow-md transition-all"
         />
 
-       
         <p className="text-center mt-4 text-sm text-green-700">
           Don't have an account?{" "}
           <span
