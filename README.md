@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# 🌟 MedConnect
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**MedConnect** is a responsive web application that connects **patients** with **doctors** for consultations, appointments, prescriptions, and medical records. Designed for both patients and doctors, it offers a smooth and intuitive interface with real-time data management.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+### 🔐 Authentication & User Management
+- Patient & Doctor registration
+- Secure login for both roles
+- Profile management
+- Session handling with token-based authentication (JWT)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🏥 Patient Features
+- Search and filter doctors by specialization & availability
+- Book, reschedule, and manage appointments
+- View medical records & prescriptions
+- Download medical reports
+- Medicine reminder system with browser notifications
 
-## Expanding the ESLint configuration
+### 👨‍⚕️ Doctor Features
+- Daily schedule overview
+- Manage patients & access medical history
+- Write digital prescriptions from medicine database
+- Upload medical reports
+- Set availability & working hours
+- Manage appointment status (booked → completed)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📊 Data Management
+- Persistent storage on backend
+- Appointment tracking & status updates
+- Prescription management with dosage & duration
+- Medical report storage
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠 Tech Stack
+- **Frontend:** React.js + TypeScript  
+- **Routing:** React Router DOM  
+- **UI:** Tailwind CSS + React Icons  
+- **Notifications:** React Toastify  
+- **API Communication:** Axios / Fetch API (REST API)  
+- **Build Tool:** Vite  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Ongoing Work
+- Full CRUD integration with REST API
+- UI responsiveness & accessibility improvements
+- Downloadable medical reports
+- Enhanced medicine reminder system with customizable notifications
+- 404 & fallback pages for better SPA experience
+- Role-based access control & token authentication
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📌 Demo
+You can preview the latest project [here](https://med-connect-ten.vercel.app/)
+
+---
+
+## 💡 Why MedConnect?
+MedConnect simplifies **doctor-patient interactions**, ensures **secure management of medical records**, and provides a **seamless user experience** for scheduling, consultations, and prescriptions.  
+
