@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Appointment } from "../../utils/appointmentStorage";
 import { savePrescription } from "../../utils/prescriptionStorage";
+import { toast } from "react-toastify";
 
 const MEDICINES = [
   { name: "Paracetamol", dosages: ["500mg", "650mg", "1g"] },
@@ -16,39 +17,53 @@ interface Props {
 }
 
 export default function PrescriptionModal({ patient, onClose, onComplete }: Props) {
-  const [medicines, setMedicines] = useState([{ name: "", dosage: "", duration: "", time: "" }]);
+  const [medicines, setMedicines] = useState([
+    { name: "", dosage: "", duration: "1", time: "", timesPerDay: "1" },
+  ]);
+
   const doctorName = localStorage.getItem("currentUserName") || "Dr. Demo";
 
   const handleAddMedicine = () =>
-    setMedicines([...medicines, { name: "", dosage: "", duration: "", time: "" }]);
+    setMedicines([...medicines, { name: "", dosage: "", duration: "1", time: "", timesPerDay: "1" }]);
 
   const handleChange = (index: number, field: string, value: string) => {
     const newMeds = [...medicines];
-    newMeds[index][field as keyof typeof newMeds[0]] = value;
-    if (field === "name") newMeds[index].dosage = "";
+    if (field === "name") {
+      const [medName, medDosage] = value.split(" | ");
+      newMeds[index].name = medName;
+      newMeds[index].dosage = medDosage;
+    } else {
+      newMeds[index][field as keyof typeof newMeds[0]] = value;
+    }
     setMedicines(newMeds);
   };
 
   const handleSave = () => {
-    if (medicines.some((m) => !m.name || !m.dosage || !m.duration || !m.time)) {
-      alert("Please fill all fields for each medicine.");
+    if (medicines.some((m) => !m.name || !m.dosage || !m.duration || !m.timesPerDay)) {
+      toast.error("Please fill all fields for each medicine!", { theme: "colored" });
       return;
     }
 
     savePrescription({
       id: crypto.randomUUID(),
-      appointmentId: patient.id, // link to appointment
+      appointmentId: patient.id,
       doctorName,
       patientEmail: patient.patientEmail,
       medicines,
       date: new Date().toISOString().split("T")[0],
     });
 
-
+    toast.success("✅ Prescription saved and appointment marked as completed!", { theme: "colored" });
     onComplete(patient.id);
-    alert("Prescription saved and appointment marked as completed!");
     onClose();
   };
+
+  const durationOptions = Array.from({ length: 7 }, (_, i) => i + 1);
+  const timesOptions = [
+    { value: "1", label: "1 time/day (Breakfast or Dinner)" },
+    { value: "2", label: "2 times/day (Breakfast + Dinner)" },
+    { value: "3", label: "3 times/day (Breakfast + Lunch + Dinner)" },
+  ];
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
@@ -60,50 +75,47 @@ export default function PrescriptionModal({ patient, onClose, onComplete }: Prop
         <div className="flex flex-col gap-4">
           {medicines.map((m, i) => (
             <div key={i} className="flex flex-col md:flex-row gap-3 items-center">
-              {/* Medicine Name */}
+              {/* Medicine + Dosage */}
               <select
-                value={m.name}
+                value={m.name ? `${m.name} | ${m.dosage}` : ""}
                 onChange={(e) => handleChange(i, "name", e.target.value)}
                 className="flex-1 p-2 border rounded bg-white"
               >
-                <option value="">Select Medicine</option>
-                {MEDICINES.map((med) => (
-                  <option key={med.name} value={med.name}>
-                    {med.name}
-                  </option>
-                ))}
-              </select>
-
-              {/* Dosage */}
-              <select
-                value={m.dosage}
-                onChange={(e) => handleChange(i, "dosage", e.target.value)}
-                className="flex-1 p-2 border rounded bg-white"
-                disabled={!m.name}
-              >
-                <option value="">Select Dosage</option>
-                {MEDICINES.find((med) => med.name === m.name)?.dosages.map((d) => (
-                  <option key={d} value={d}>
-                    {d}
-                  </option>
-                ))}
+                <option value="">Select Medicine & Dosage</option>
+                {MEDICINES.flatMap((med) =>
+                  med.dosages.map((d) => (
+                    <option key={`${med.name}-${d}`} value={`${med.name} | ${d}`}>
+                      {med.name} ({d})
+                    </option>
+                  ))
+                )}
               </select>
 
               {/* Duration */}
-              <input
-                type="text"
-                placeholder="Duration (e.g., 5 days)"
+              <select
                 value={m.duration}
                 onChange={(e) => handleChange(i, "duration", e.target.value)}
-                className="flex-1 p-2 border rounded"
-              />
-              <input
-                type="text"
-                placeholder="Time (e.g., 2 times )"
-                value={m.time}
-                onChange={(e) => handleChange(i, "time", e.target.value)}
-                className="flex-1 p-2 border rounded"
-              />
+                className="flex-1 p-2 border rounded bg-white"
+              >
+                {durationOptions.map((d) => (
+                  <option key={d} value={d}>
+                    {d} day{d > 1 ? "s" : ""}
+                  </option>
+                ))}
+              </select>
+
+              {/* Times per day */}
+              <select
+                value={m.timesPerDay}
+                onChange={(e) => handleChange(i, "timesPerDay", e.target.value)}
+                className="flex-1 p-2 border rounded bg-white"
+              >
+                {timesOptions.map((t) => (
+                  <option key={t.value} value={t.value}>
+                    {t.label}
+                  </option>
+                ))}
+              </select>
             </div>
           ))}
         </div>

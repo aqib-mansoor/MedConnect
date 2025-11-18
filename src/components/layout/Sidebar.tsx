@@ -22,20 +22,22 @@ export default function Sidebar({ role }: SidebarProps) {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const getLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `flex items-center gap-3 p-2 rounded-md transition-all ${
-      isActive ? "bg-green-700" : "hover:bg-green-600"
+    `flex items-center gap-3 p-2 rounded-md transition-all ${isActive ? "bg-green-700" : "hover:bg-green-600"
     }`;
 
   // Patient Menu
+  // Patient Menu
   const patientMenu = [
     { name: "Dashboard", path: "/patient-dashboard", icon: <FaTachometerAlt /> },
-    { name: "Find Doctors", path: "/patient-doctors", icon: <FaUserMd /> },
+    { name: "Available Doctors", path: "/patient-doctors", icon: <FaUserMd /> },
     { name: "My Appointments", path: "/patient-appointments", icon: <FaCalendarCheck /> },
     { name: "Medical Records", path: "/patient-reports", icon: <FaFileMedical /> },
+    { name: "Medicine Reminders", path: "/medicine-reminders", icon: <FaClock /> },
   ];
 
+
   // Doctor Menu
-   const doctorMenu = [
+  const doctorMenu = [
     { name: "Dashboard", path: "/doctor-dashboard", icon: <FaTachometerAlt /> },
     { name: "Appointments", path: "/doctor-appointments", icon: <FaCalendarCheck /> },
     { name: "Upload Reports", path: "/doctor-patients", icon: <FaFileUpload /> }, // integrated in patients page

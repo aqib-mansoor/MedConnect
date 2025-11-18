@@ -9,12 +9,13 @@ import DoctorAppointments from "./pages/doctor/DoctorAppointments";
 import PatientsPage from "./pages/doctor/PatientsPage";
 import MedicalReports from "./pages/patient/MedicalReports";
 import AvailabilityPage from "./pages/doctor/AvailabilityPage";
+import MedicineReminders from "./pages/patient/MedicineReminders";
 
 
 function App() {
   return (
     <Routes>
-      {/* 👇 FIX HERE — Add home redirect */}
+     
       <Route path="/" element={<Navigate to="/login" replace />} />
 
       <Route path="/login" element={<LoginPage />} />
@@ -27,6 +28,7 @@ function App() {
       <Route path="/doctor-patients" element={<PatientsPage />} />
       <Route path="/patient-reports" element={<MedicalReports />} />
       <Route path="/doctor-availability" element={<AvailabilityPage />} />
+      <Route path="/medicine-reminders" element={<MedicineReminders />} />
 
     </Routes>
   );

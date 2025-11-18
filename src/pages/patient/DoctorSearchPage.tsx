@@ -23,7 +23,7 @@ export default function DoctorSearchPage() {
 
   return (
     <Layout>
-      <h2 className="text-2xl font-bold mb-6">Find a Doctor</h2>
+      <h2 className="text-3xl font-extrabold mb-8 text-green-600 text-center">Available Doctor's</h2>
       <input
         type="text"
         placeholder="Search by name or specialization..."

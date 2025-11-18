@@ -13,7 +13,7 @@ export default function MedicalReports() {
 
   return (
     <Layout>
-      <h2 className="text-3xl font-extrabold mb-8 text-green-700 text-center">
+      <h2 className="text-3xl font-extrabold mb-8 text-green-600 text-center">
         My Medical Reports
       </h2>
 

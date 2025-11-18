@@ -16,6 +16,7 @@ interface Credential {
 const predefinedUsers: Credential[] = [
   { email: "patient@example.com", password: "123", role: "patient", name: "Umer Khan" },
   { email: "abc@gmail.com", password: "123", role: "patient", name: "Fahad Sohail" },
+  { email: "aaa@gmail.com", password: "123", role: "patient", name: "Asad Khan" },
   { email: "ayesha@hospital.com", password: "123", role: "doctor", name: "Dr. Ayesha Khan" },
   { email: "ali@hospital.com", password: "123", role: "doctor", name: "Dr. Ali Raza" },
   { email: "sara@hospital.com", password: "123", role: "doctor", name: "Dr. Sara Ahmed" },
