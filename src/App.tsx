@@ -10,12 +10,14 @@ import PatientsPage from "./pages/doctor/PatientsPage";
 import MedicalReports from "./pages/patient/MedicalReports";
 import AvailabilityPage from "./pages/doctor/AvailabilityPage";
 import MedicineReminders from "./pages/patient/MedicineReminders";
+import Prescriptions from "./pages/patient/Prescriptions";
+
 
 
 function App() {
   return (
     <Routes>
-     
+
       <Route path="/" element={<Navigate to="/login" replace />} />
 
       <Route path="/login" element={<LoginPage />} />
@@ -29,6 +31,7 @@ function App() {
       <Route path="/patient-reports" element={<MedicalReports />} />
       <Route path="/doctor-availability" element={<AvailabilityPage />} />
       <Route path="/medicine-reminders" element={<MedicineReminders />} />
+      <Route path="/patient-prescriptions" element={<Prescriptions />} />
 
     </Routes>
   );
