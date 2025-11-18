@@ -56,7 +56,7 @@
 ---
 
 ## 📌 Demo
-You can preview the latest project [here](https://your-deployed-link.vercel.app)  
+You can preview the latest project [here]([https://your-deployed-link.vercel.app](https://med-connect-ten.vercel.app/))  
 
 ---
 
