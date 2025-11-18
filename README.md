@@ -55,6 +55,20 @@
 
 ---
 
+## 🧑‍💻 Demo Credentials
+
+You can use the following credentials to test the app:
+
+**Doctor Account**  
+- Email: `ayesha@hospital.com`  
+- Password: `12345`
+
+**Patient Account**  
+- Email: `patient@example.com`  
+- Password: `12345`
+
+---
+
 ## 📌 Demo
 You can preview the latest project [here](https://med-connect-ten.vercel.app/)
 
@@ -62,4 +76,3 @@ You can preview the latest project [here](https://med-connect-ten.vercel.app/)
 
 ## 💡 Why MedConnect?
 MedConnect simplifies **doctor-patient interactions**, ensures **secure management of medical records**, and provides a **seamless user experience** for scheduling, consultations, and prescriptions.  
-
