@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+// Remove FaUsers from import
 import {
   FaTachometerAlt,
   FaCalendarCheck,
   FaFileMedical,
-  FaUsers,
   FaBars,
   FaTimes,
   FaUserMd,

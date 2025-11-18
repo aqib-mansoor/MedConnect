@@ -1,14 +1,10 @@
 import Layout from "../../components/layout/Layout";
 import DashboardCard from "../../components/cards/DashboardCard";
-import { FaHeartbeat, FaCalendarCheck, FaPills, FaUserMd } from "react-icons/fa";
-import DoctorCard from "../../components/doctors/DoctorCard";
-import { getDoctors } from "../../utils/doctorStorage";
-import type {  Doctor } from "../../utils/doctorStorage";
+import { FaHeartbeat, FaCalendarCheck, FaPills} from "react-icons/fa";
 
-import { useState } from "react";
 
 export default function PatientDashboard() {
-  const [doctors, setDoctors] = useState<Doctor[]>(getDoctors());
+ 
 
   const upcomingAppointments = [
     { doctor: "Dr. Sara Ahmed", date: "12 Nov 2025", time: "10:00 AM" },

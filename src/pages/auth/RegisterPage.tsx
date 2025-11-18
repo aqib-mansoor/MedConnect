@@ -33,10 +33,6 @@ export default function RegisterPage() {
       email,
       password,
       role,
-      allergies: role === "patient" ? allergies : "",
-      bloodGroup: role === "patient" ? bloodGroup : "",
-      specialization: role === "doctor" ? specialization : "",
-      credentials: role === "doctor" ? credentials : "",
     };
 
     if (register(newUser)) {

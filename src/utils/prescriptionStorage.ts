@@ -1,16 +1,20 @@
+export interface Medicine {
+  name: string;
+  dosage: string;
+  duration: string;
+  time: string;
+  timesPerDay: number;
+}
+
 export interface Prescription {
   id: string;
-  appointmentId: string; // NEW: link to appointment
   doctorName: string;
   patientEmail: string;
-  medicines: {
-    name: string;
-    dosage: string;
-    duration: string;
-    time: string;
-  }[];
   date: string;
+  medicines: Medicine[];
+  appointmentId?: string; // <-- add this optional property
 }
+
 
 export const savePrescription = (prescription: Prescription) => {
   const existing = JSON.parse(localStorage.getItem("prescriptions") || "[]");

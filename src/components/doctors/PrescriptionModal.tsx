@@ -16,24 +16,37 @@ interface Props {
   onComplete: (id: string) => void;
 }
 
+interface Medicine {
+  name: string;
+  dosage: string;
+  duration: string;
+  time: string;
+  timesPerDay: number;
+}
+
 export default function PrescriptionModal({ patient, onClose, onComplete }: Props) {
-  const [medicines, setMedicines] = useState([
-    { name: "", dosage: "", duration: "1", time: "", timesPerDay: "1" },
+  const [medicines, setMedicines] = useState<Medicine[]>([
+    { name: "", dosage: "", duration: "1", time: "", timesPerDay: 1 },
   ]);
 
   const doctorName = localStorage.getItem("currentUserName") || "Dr. Demo";
 
   const handleAddMedicine = () =>
-    setMedicines([...medicines, { name: "", dosage: "", duration: "1", time: "", timesPerDay: "1" }]);
+    setMedicines([
+      ...medicines,
+      { name: "", dosage: "", duration: "1", time: "", timesPerDay: 1 },
+    ]);
 
-  const handleChange = (index: number, field: string, value: string) => {
+  const handleChange = (index: number, field: keyof Medicine, value: string) => {
     const newMeds = [...medicines];
     if (field === "name") {
       const [medName, medDosage] = value.split(" | ");
-      newMeds[index].name = medName;
-      newMeds[index].dosage = medDosage;
+      newMeds[index].name = medName || "";
+      newMeds[index].dosage = medDosage || "";
+    } else if (field === "timesPerDay") {
+      newMeds[index].timesPerDay = Number(value); // convert string to number
     } else {
-      newMeds[index][field as keyof typeof newMeds[0]] = value;
+      newMeds[index][field] = value;
     }
     setMedicines(newMeds);
   };

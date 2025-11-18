@@ -92,8 +92,9 @@ export default function MedicineReminders() {
     });
     setAppointments(uniqueAppointments);
     if (uniqueAppointments.length > 0 && !appointmentId) {
-      setAppointmentId(uniqueAppointments[0].id);
+      setAppointmentId(uniqueAppointments[0].id || "");
     }
+
   }, []);
 
   // Load medicines for today
@@ -161,7 +162,7 @@ export default function MedicineReminders() {
 
   const handleDeleteMedicine = (medId: string) => {
     toast(
-      ({ closeToast }: any) => (
+      ({ }: any) => (
         <div className="flex flex-col gap-2">
           <p>Are you sure you want to delete this medicine?</p>
           <div className="flex justify-end gap-2">

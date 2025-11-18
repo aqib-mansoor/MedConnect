@@ -1,5 +1,5 @@
 import type { Doctor } from "../../utils/doctorStorage";
-import { FaUserMd, FaBriefcase, FaCalendarAlt, FaStar, FaClock } from "react-icons/fa";
+import { FaUserMd, FaBriefcase, FaStar, FaClock } from "react-icons/fa";
 
 interface DoctorCardProps {
   doctor: Doctor;
