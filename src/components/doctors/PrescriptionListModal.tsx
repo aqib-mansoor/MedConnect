@@ -16,7 +16,7 @@ export default function PrescriptionListModal({ prescriptions, patientName, onCl
   const handleDownloadPDF = async () => {
     if (!printRef.current) return;
 
-    // Temporarily show the print div if hidden
+    // Temporarily show the print div
     const printDiv = printRef.current;
     printDiv.style.display = "block";
 
@@ -30,16 +30,15 @@ export default function PrescriptionListModal({ prescriptions, patientName, onCl
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
     pdf.save(`${patientName}-prescription.pdf`);
 
-    // Hide the print div again
     printDiv.style.display = "none";
   };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white w-full max-w-4xl p-6 rounded-xl shadow-xl overflow-y-auto max-h-[90vh]">
-        {/* On-screen modal content */}
+        {/* Modal content */}
         <div>
-          <h2 className="text-2xl font-bold text-green-700 mb-4">Patient Prescription</h2>
+          <h2 className="text-2xl font-bold text-green-700 mb-4">Patient Prescriptions</h2>
           {prescriptions.length === 0 ? (
             <p className="text-gray-500 text-center py-10">No prescriptions available.</p>
           ) : (
@@ -67,7 +66,7 @@ export default function PrescriptionListModal({ prescriptions, patientName, onCl
                           <td className="border px-3 py-1">{m.name}</td>
                           <td className="border px-3 py-1">{m.dosage}</td>
                           <td className="border px-3 py-1">{m.duration}</td>
-                          <td className="border px-3 py-1">{m.time || "N/A"}</td>
+                          <td className="border px-3 py-1">{m.timesPerDay} time(s)/day</td>
                         </tr>
                       ))}
                     </tbody>
@@ -97,7 +96,7 @@ export default function PrescriptionListModal({ prescriptions, patientName, onCl
           </button>
         </div>
 
-        {/* Hidden print template */}
+        {/* Hidden print template for PDF */}
         <div ref={printRef} className="hidden w-full p-6 bg-white" style={{ fontFamily: "Arial" }}>
           <h1 className="text-3xl font-bold text-green-800 text-center mb-4">MedConnect Clinic</h1>
           <p className="text-sm mb-2">
@@ -125,7 +124,7 @@ export default function PrescriptionListModal({ prescriptions, patientName, onCl
                       <td className="border px-3 py-1">{m.name}</td>
                       <td className="border px-3 py-1">{m.dosage}</td>
                       <td className="border px-3 py-1">{m.duration}</td>
-                      <td className="border px-3 py-1">{m.time || "N/A"}</td>
+                      <td className="border px-3 py-1">{m.timesPerDay} time(s)/day</td>
                     </tr>
                   ))}
                 </tbody>
