@@ -31,8 +31,8 @@ export default function Sidebar({ role }: SidebarProps) {
     { name: "Available Doctors", path: "/patient-doctors", icon: <FaUserMd /> },
     { name: "My Appointments", path: "/patient-appointments", icon: <FaCalendarCheck /> },
     { name: "Medical Records", path: "/patient-reports", icon: <FaFileMedical /> },
-    { name: "Prescriptions", path: "/patient-prescriptions", icon: <FaFileMedical /> }, // New
     { name: "Medicine Reminders", path: "/medicine-reminders", icon: <FaClock /> },
+     { name: "Prescriptions", path: "/patient-prescriptions", icon: <FaFileMedical /> }, // New
   ];
 
 
