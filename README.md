@@ -1,4 +1,4 @@
-# 🌟 MedConnect
+a# 🌟 MedConnect
 
 **MedConnect** is a responsive web application that connects **patients** with **doctors** for consultations, appointments, prescriptions, and medical records. Designed for both patients and doctors, it offers a smooth and intuitive interface with real-time data management.
 
@@ -40,20 +40,17 @@
 - **Routing:** React Router DOM  
 - **UI:** Tailwind CSS + React Icons  
 - **Notifications:** React Toastify  
-- **API Communication:** Axios / Fetch API (REST API)  
+- **API Communication:** Axios (REST API)  
 - **Build Tool:** Vite  
 
 ---
 
 ## ⚙️ Ongoing Work
-- Full CRUD integration with REST API
 - UI responsiveness & accessibility improvements
 - Downloadable medical reports
 - Enhanced medicine reminder system with customizable notifications
-- 404 & fallback pages for better SPA experience
 - Role-based access control & token authentication
-
----
+- Doctor & patient contact via Live Chat
 
 ## 🧑‍💻 Demo Credentials
 
